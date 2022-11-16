@@ -1,0 +1,63 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{ item.title }}</h1>
+        <div class="card" style="width: 14rem;">
+        <img class="card-img-top" src="{{ item.url }}" alt="">
+        </div>
+        <hr class="my-4">
+        <p style="color: grey;">{{ item.description }}</p>
+        <p> <strong>Category:</strong> {{ item.category }}</p>
+        <p class="lead">
+        <p class="lead">Current bid: <strong>${{item.bid}}</strong></p>
+        {% if user.is_authenticated and cuser == 101 %}
+        <form action="{% url 'closeauc' %}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-primary btn-lg" href="{% url 'closeauc' %}" role="button">Close auction</button>
+        <input type="hidden" value="{{item.bid}}" name="price">
+        <input type="hidden" value="{{item.title}}" name="title">
+        </form>
+        {% elif user.is_authenticated and cuser == 0 %}               
+        <form action="{% url 'watchlist' %}" method="post">
+            {% csrf_token %}
+            <a class="btn btn-primary btn-lg" href="{% url 'placebid' item.title %}" role="button">Place bid</a>
+            {% if value == 61 %}
+            <input type="hidden" value="add" name="listo">
+            <button class="btn btn-primary btn-lg" type="submit" value="{{ item.title }}" name="addlisting" >Add to watchlist</button>
+            {% else %}
+            <input type="hidden" value="remove" name="listo">
+            <button class="btn btn-primary btn-lg" type="submit" value="{{ item.title }}" name="remlisting" >Remove from watchlist</button>
+            {% endif %}
+        </form>
+        {% else %}
+        <p><strong>Login to place bid</strong></p>
+        {% endif %}
+        </p>
+    </div>
+    {% for j in comments %}
+    <div class="card">
+        <h5 class="card-header">{{ j.user }}</h5>
+        <div class="card-body">
+          <h5 class="card-title">{{ j.heading }}</h5>
+          <p class="card-text">{{ j.comment }}</p>
+        </div>
+      </div>
+    {% empty %}
+    <div class="card" style="text-align: center;">
+        <h5 class="card-header">Comments</h5>
+        <div class="card-body">
+          <h5 class="card-title">Be the first one to comment!</h5>
+          <p class="card-text"></p>
+        </div>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <div style="padding: 10px;">
+      <form action="{% url 'comment' %}" method="post">
+          {% csrf_token %}
+        <button class="btn btn-primary">Add a comment</button>
+        <input type="hidden" value="{{ item.title }}" name="titlesama">
+      </form></div>
+    {% endif %}
+{% endblock %}

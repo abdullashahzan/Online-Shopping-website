@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Create Auction Listing</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <h2>Create New Listing</h2>
+        <form action="{% url 'getlisting' %}" method="post">
+            {% csrf_token %}
+            <li style="list-style:none; padding: 10px;">
+                <h6>Title:</h6>
+                <input name="title" type="text" style="width: 100%" placeholder="Title of your listing">
+            </li>
+            <li style="list-style:none; padding: 10px;">
+                <h6>Description:</h6>
+                <textarea name="desc" cols="175" rows="12" placeholder="Describe your listing"></textarea>
+            </li>
+            <li style="list-style:none; padding: 10px;">
+                <h6>Starting bid:</h6>
+                <input name="bid" type="float" style="width: 100%" placeholder="Listing's starting bid">
+            </li>
+            <li style="list-style:none; padding: 10px;">
+                <h6>Image URL:</h6>
+                <input name="img" type="text" style="width: 100%" placeholder="URL of the image (optional)">
+            </li>
+            <li style="list-style:none; padding: 10px;">
+                <h6>Category:</h6>
+                <input name="category" type="text" style="width: 100%" placeholder="Category of your listing (optional)">
+            </li>
+            <li style="list-style:none; padding: 10px;">
+                <input type="submit" style="width: 150px">
+            </li>
+        </form>       
+    </body>
+</html>
+
+
+

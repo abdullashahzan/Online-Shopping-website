@@ -1,0 +1,30 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings</h2>
+    <div class="card-columns" style="text-align: center;">
+    {% for i in data %}
+        <div class="card" >
+            <img class="card-img-top" src="{{ i.url }}" alt="">
+            <div class="card-body">
+                {% if i.winner == u %}
+                <form action="{% url 'deletelisting' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary" value="{{ i.title }}" name="listooo">
+                    <h5 class="card-title">{{i.title}}</h5>
+                </button>
+                </form>
+                <p class="card-text" style="color: grey;">Click to claim!</p>
+                <h5>Congratulations! You have won the bid!</h5>
+                {% else %}
+                <a href="{% url 'listingdetails' i.title %}"><h5 class="card-title">{{i.title}}</h5></a>
+                <p class="card-text" style="color: grey;">{{i.description}}</p>
+                Current Bid:<h5>${{ i.bid }}</h5>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p style="padding: 10px;">There are no active listings at the moment.</p>
+    {% endfor %}
+    </div>
+{% endblock %}

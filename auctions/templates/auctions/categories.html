@@ -1,0 +1,14 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories</h2>
+    {% for i in bruh %}
+    <a href="{% url 'showcat' i %}"><div class="card mb-3" style="text-align: center; background-color: rgb(214, 230, 240);">
+        <div class="card-body">
+          <h5 class="card-title">{{ i }}</h5>
+        </div>
+      </div></a>
+    {% empty %}
+
+    {% endfor %}
+{% endblock %}

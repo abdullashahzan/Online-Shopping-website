@@ -1,0 +1,23 @@
+{% extends 'auctions/layout.html' %}
+
+
+{% block body %}
+
+    <h2>Watchlist</h2>
+    <div  class="row" style="padding: 10px; text-align: center;">
+    {% for i in things %}
+    <div class="col-sm-2">
+    <div class="card" style="width: 14rem;">
+        <img src="{{ i.1 }}" class="card-img-top" alt="">
+        <div class="card-body">
+          <a href="{% url 'listingdetails' i.0 %}"><h5 class="card-title">{{ i.0 }}</h5></a>
+          <p class="card-text">{{ i.2 }}</p>
+        </div>
+      </div>
+      </div>
+    {% empty %}
+    <p style="padding: 10px;">Your watchlist is empty</p>
+    {%endfor%}
+    </div>
+
+{% endblock %}

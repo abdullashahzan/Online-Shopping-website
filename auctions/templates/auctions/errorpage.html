@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Info</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    </head>
+    <body style="text-align: center ;">
+        
+        {% if code == 100 %}
+        <h1>
+            Error
+        </h1>
+            <h3>Please enter mandatory data.</h3>
+        {% elif code == 56 %}
+        <h1>
+            Error
+        </h1>
+            <h3>You must bid higher than ${{currentprice}}</h3>
+        {% elif code == 97 %}
+            <h3>Bid placed successfully!</h3>
+            <a href="{% url 'index' %}">Home</a>
+        {% elif code == 1 %}
+            <h3>Auction has been closed successfully!</h3>
+            <p>Product sold at ${{ price }}</p>
+            <a href="{% url 'index' %}">Home</a>
+        {% endif %}
+    </body>
+</html>

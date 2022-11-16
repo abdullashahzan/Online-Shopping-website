@@ -1,0 +1,27 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+    <form action="{% url 'checkbid' %}" method="post" >
+        {% csrf_token %}
+        <li style="list-style: none; padding: 10px;">
+            <h1>Current price: <strong>${{ currentprice }}</strong></h1>
+        </li>
+        <li style="list-style: none; padding: 10px;">
+            <h3>Place your bid:</h3>
+            <input type="float" placeholder="Bid" width="100%" name="bidprice">
+            <input type="hidden" value="{{ item }}" name="listoo">
+            <input type="hidden" value="{{currentprice}}" name="currentp">
+        </li>
+        <li style="list-style: none; padding: 10px;">
+            <button class="btn btn-primary" type="submit">BID</button>
+        </li>
+        {% if error %}
+        <li style="list-style: none; padding: 10px;">
+            <div class="alert alert-warning" role="alert">
+                Bidding price should be higher than ${{currentprice}}
+              </div>
+        </li>
+        {% endif %}
+    </form>
+
+{% endblock %}

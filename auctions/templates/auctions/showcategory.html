@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Categories</h2>
+    <div  class="row" style="padding: 10px; text-align: center;">
+        {% for i in nani %}
+        <div class="col-sm-2">
+        <div class="card" style="width: 14rem;">
+            <img src="{{ i.url }}" class="card-img-top" alt="">
+            <div class="card-body">
+              <a href="{% url 'listingdetails' i.title %}"><h5 class="card-title">{{ i.title }}</h5></a>
+              <p class="card-text">{{ i.description }}</p>
+              Current Bid:<h5>${{ i.bid }}</h5>
+            </div>
+          </div>
+          </div>
+        {% empty %}
+        <h2>Your watchlist is empty</h2>
+        {%endfor%}
+        </div>
+{% endblock %}
